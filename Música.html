@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reprodutor de Música</title>
+</head>
+<body>
+    <!-- Reprodutor de música -->
+    <audio id="audio-player" autoplay>
+        <source id="audio-source" src="https://www.youtube.com/watch?v=s7RRgF5Ve_E" type="audio/mpeg">
+        Seu navegador não suporta o elemento de áudio.
+    </audio>
+
+    <!-- Botão para tocar a música ao clicar -->
+    <button onclick="playMusic()">Clique para Tocar Música</button>
+
+    <script>
+        // Função para tocar música ao clicar
+        function playMusic() {
+            const audioPlayer = document.getElementById('audio-player');
+            audioPlayer.play();
+        }
+
+        // Função para tocar música ao carregar a página
+        window.onload = function() {
+            const audioPlayer = document.getElementById('audio-player');
+            audioPlayer.play(); // Inicia automaticamente a música ao carregar a página
+        };
+    </script>
+</body>
+</html>
