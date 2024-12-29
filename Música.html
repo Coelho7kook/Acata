@@ -6,19 +6,20 @@
     <title>Reprodutor de Música - YouTube</title>
 </head>
 <body>
-    <!-- Iframe para tocar o áudio do YouTube -->
-    <div id="audio-player-container">
-        <!-- O primeiro link de áudio do YouTube -->
-        <iframe id="audio-player" width="0" height="0" src="https://www.youtube.com/embed/s7RRgF5Ve_E?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-    </div>
-
-    <!-- Texto ou qualquer outra coisa para indicar a interação -->
+    <!-- Texto explicativo -->
     <p>Clique em qualquer lugar da página para mudar a música!</p>
 
+    <!-- Elemento de áudio, com um link de música como exemplo -->
+    <audio id="audio-player" preload="auto" autoplay>
+        <!-- Defina o primeiro áudio para tocar automaticamente ao carregar -->
+        <source src="https://www.youtube.com/embed/s7RRgF5Ve_E?autoplay=1" type="audio/mp3">
+        Seu navegador não suporta o elemento de áudio.
+    </audio>
+
     <script>
-        // Função para trocar o vídeo de áudio ao clicar
+        // Função para trocar o áudio ao clicar
         function playMusic() {
-            const iframe = document.getElementById('audio-player');
+            const audioPlayer = document.getElementById('audio-player');
             const audioLinks = [
                 "https://www.youtube.com/embed/s7RRgF5Ve_E?autoplay=1",  // Primeiro link de áudio
                 "https://www.youtube.com/embed/v9l52KilyLU?autoplay=1",  // Segundo link de áudio
@@ -29,7 +30,8 @@
 
             // Escolher um link aleatório
             const randomIndex = Math.floor(Math.random() * audioLinks.length);
-            iframe.src = audioLinks[randomIndex];  // Mudar o iframe para um link aleatório
+            audioPlayer.src = audioLinks[randomIndex];  // Mudar o src para o novo link de áudio
+            audioPlayer.play();  // Começar a tocar a nova música
         }
 
         // Função para tocar música automaticamente quando a página for carregada
