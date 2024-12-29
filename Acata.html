@@ -6,7 +6,7 @@ git branch -M main
 git remote add origin https://github.com/Coelho7kook/Acata.git
  git push -u origin main
 
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
@@ -16,6 +16,9 @@ git remote add origin https://github.com/Coelho7kook/Acata.git
         body {
             margin: 0;
             padding: 0;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
             color: white;
             font-family: Arial, Helvetica, sans-serif;
             text-align: center;
@@ -24,8 +27,6 @@ git remote add origin https://github.com/Coelho7kook/Acata.git
             justify-content: center;
             height: 100vh;
             overflow: hidden;
-            background-size: cover;
-            transition: background-image 1s ease-in-out;
         }
 
         .text-content {
@@ -34,26 +35,11 @@ git remote add origin https://github.com/Coelho7kook/Acata.git
             padding: 20px;
             background-color: rgba(0, 0, 0, 0.6);
             border-radius: 10px;
-            display: none; /* Oculta o texto inicialmente */
+            display: block; /* Exibe o texto por padrão */
         }
 
         audio {
             display: none;
-        }
-
-        .button-play {
-            background-color: #ffb3d9;
-            color: white;
-            font-size: 20px;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-
-        .button-play:hover {
-            background-color: #ff69b4;
         }
 
         .button-language {
@@ -62,7 +48,7 @@ git remote add origin https://github.com/Coelho7kook/Acata.git
             cursor: pointer;
             border-radius: 5px;
             color: white;
-            background-color: #6a1b9a;
+            background-color: #6a1b9a; /* Cores distintas para cada idioma */
             font-size: 14px;
             text-transform: uppercase;
         }
@@ -71,38 +57,19 @@ git remote add origin https://github.com/Coelho7kook/Acata.git
             background-color: #4a148c;
         }
 
-        /* Botões para mudar o GIF */
-        .button-gif {
+        .button-arrow {
             margin-top: 20px;
             padding: 10px 20px;
-            background-color: #009688;
-            color: white;
-            border: none;
+            cursor: pointer;
             border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .button-gif:hover {
-            background-color: #00796b;
-        }
-
-        .gif-button-container {
-            margin-top: 20px;
-        }
-
-        .gif-button-container button {
-            padding: 10px;
-            background-color: transparent;
+            background-color: #ffb3d9;
             color: white;
-            font-size: 30px;
-            cursor: pointer;
-            border: none;
+            font-size: 16px;
         }
 
-        .gif-button-container button:hover {
-            background-color: rgba(0, 0, 0, 0.5);
+        .button-arrow:hover {
+            background-color: #ff69b4;
         }
-
     </style>
 </head>
 <body>
@@ -112,50 +79,19 @@ git remote add origin https://github.com/Coelho7kook/Acata.git
     </audio>
 
     <div class="text-content">
-        <p>Para Minha Amiga,  
-        Mesmo quando o mundo parece pesado, quero que saibas que não estás sozinha. O caminho pode ser difícil, e as sombras podem parecer mais profundas, mas a tua força é maior do que imaginas.</p>
+        <p id="text"></p>
     </div>
-
-    <button class="button-play" onclick="toggleText()">Por favor, clique aqui para algo especial</button>
 
     <div>
         <button class="button-language" onclick="setLanguage('pt')">Português</button>
-        <button class="button-language" onclick="setLanguage('en')">Inglês</button>
-        <button class="button-language" onclick="setLanguage('ja')">Japonês</button>
-        <button class="button-language" onclick="setLanguage('ru')">Russo</button>
+        <button class="button-language" onclick="setLanguage('en')">English</button>
+        <button class="button-language" onclick="setLanguage('ja')">日本語</button>
+        <button class="button-language" onclick="setLanguage('ru')">Русский</button>
     </div>
 
-    <div class="gif-button-container">
-        <!-- Botões de seta para alterar o GIF -->
-        <button onclick="changeGif(-1)">&#8592; Anterior</button>
-        <button onclick="changeGif(1)">Próximo &#8594;</button>
-    </div>
+    <button class="button-arrow" onclick="changeGif()">Trocar GIF</button>
 
     <script>
-        // Lista de URLs de GIFs de fundo
-        const gifs = [
-            "https://i0.wp.com/assets.b9.com.br/wp-content/uploads/2015/09/japaogif11.gif?fit=500%2C288&ssl=1",
-            "https://cdna.artstation.com/p/assets/images/images/030/181/244/original/benett-casama-snoot-x.gif?1599837640",
-            "https://media.giphy.com/media/KXkQGbHc1jpX6/giphy.gif"
-        ];
-
-        let currentGifIndex = 0; // Index do GIF atual
-
-        // Função para mudar o GIF de fundo
-        function changeGif(direction) {
-            currentGifIndex += direction;
-
-            // Garantir que o índice esteja dentro dos limites
-            if (currentGifIndex < 0) {
-                currentGifIndex = gifs.length - 1;
-            } else if (currentGifIndex >= gifs.length) {
-                currentGifIndex = 0;
-            }
-
-            // Alterar o fundo para o novo GIF
-            document.body.style.backgroundImage = `url(${gifs[currentGifIndex]})`;
-        }
-
         // Lista de URLs de áudio para reprodução aleatória
         const audioLinks = [
             "https://m.youtube.com/watch?v=s7RRgF5Ve_E&pp=ygUgdW5kZXJ0YWxlIG51c2ljIG9uY2UgdXBvbiBhIHRpbWU%3D",
@@ -175,13 +111,7 @@ git remote add origin https://github.com/Coelho7kook/Acata.git
             audioPlayer.play();
         }
 
-        // Função para alternar o texto com base no idioma
-        function toggleText() {
-            const textContent = document.querySelector('.text-content');
-            textContent.style.display = 'block';
-            playRandomAudio();  // Tocar o som ao clicar no botão
-        }
-
+        // Função para definir o texto baseado no idioma
         function setLanguage(lang) {
             const texts = {
                 pt: [
@@ -201,55 +131,45 @@ git remote add origin https://github.com/Coelho7kook/Acata.git
                 ja: [
                     "私の友へ、世界が重く感じられるときでも、あなたがひとりではないことを知ってほしい。道は難しいかもしれませんし、影がより深く感じられるかもしれませんが、あなたの強さは想像以上です。",
                     "ミケラが直面する戦いのように、あなたもあらゆる嵐を乗り越える力があります。痛みの瞬間は一時的であり、最も暗い日々でも再び輝き始める光が待っています。",
-                    "悲しみがあなたを消費させないようにしてください。すべての涙は、あなたの内なる平和との再接続への一歩です。人生は不確実であり、私たちを挑戦させますが、各挑戦は喜びをもたらす小さなものを大切にすることを教えてくれます。",
-                    "自分を信じてください。言葉が失敗し、沈黙が空虚を満たそうとする時でさえ。私たちは皆、真摯な感情でつながっており、あなたの存在は唯一無二の贈り物です。",
-                    "だから、前進することを恐れないでください。そこにはいつも助けの手があり、優しい言葉があり、あなたの痛みを深く感じる心があります。あなたは強い。あなたは愛されています。"
+                    "悲しみがあなたを支配させてはならない、それぞれの涙はあなたの内なる平和に再接続するための一歩です。人生は不確実であり、それに挑戦しますが、各挑戦はさらに多くの楽しさをもたらす小さなことに価値を見出させます。",
+                    "自分自身を信じてください、言葉が失われ、沈黙が空虚を満たそうとする時でさえ。私たちは皆、真実の感情で繋がっており、あなたの存在は唯一無二の贈り物です。",
+                    "だから、前進することを恐れないでください。いつでも手を差し伸べる手があり、優しい言葉があり、あなたの痛みを深く感じる心があります。あなたは強い。あなたは愛されています。"
                 ],
                 ru: [
-                    "Для моей подруги, даже когда мир кажется тяжелым, я хочу, чтобы ты знала, что ты не одна. Путь может быть сложным, и тени могут казаться глубже, но твоя сила больше, чем ты думаешь.",
-                    "Как Микелла борется со своими проблемами, так и ты достаточно сильна, чтобы преодолеть любую бурю. Моменты боли временные, и даже в самые темные дни есть свет, который ждет, чтобы снова сиять.",
-                    "Не позволяй печали поглотить себя, потому что каждая слеза — это шаг к возвращению внутреннего мира. Жизнь с её неопределенностями бросает нам вызов, но каждый вызов учит нас ценить маленькие вещи, которые приносят радость.",
-                    "Верь в себя, даже когда слова кажутся неуместными, а молчание пытается заполнить пустоту. Мы все связаны искренними чувствами, и твое существование — уникальный подарок.",
-                    "Так что не бойся двигаться вперед, потому что всегда есть рука помощи, добрые слова и сердце, которое глубоко чувствует твою боль. Ты сильна. Ты любима."
+                    "Для моей подруги, Даже когда мир кажется тяжёлым, я хочу, чтобы ты знала, что ты не одна. Путь может быть трудным, а тени могут казаться более глубокими, но твоя сила гораздо больше, чем ты думаешь.",
+                    "Как и Микелла, сталкивающаяся со своими битвами, ты тоже достаточно сильна, чтобы преодолеть любую бурю. Моменты боли мимолётны, и даже в самые тёмные дни есть свет, который снова засияет.",
+                    "Не позволяй грусти овладеть тобой, потому что каждая слеза — это шаг к воссоединению с твоим внутренним миром. Жизнь полна неопределенности, она ставит перед нами испытания, но каждое испытание учит нас ценить ещё больше те маленькие вещи, которые приносят радость.",
+                    "Верь в себя, даже когда слова, кажется, не могут помочь, и тишина пытается заполнить
+                   "Верь в себя, даже когда слова, кажется, не могут помочь, и тишина пытается заполнить пустоту. Мы все связаны искренними чувствами, и твоё существование — уникальный подарок.",
+                    "Так что не бойся двигаться вперёд, ведь всегда есть рука помощи, добрые слова и сердце, которое глубоко чувствует твою боль. Ты сильна. Ты любима."
                 ]
             };
 
-            const textContent = document.querySelector('.text-content');
-            const langTexts = texts[lang];
-            textContent.innerHTML = langTexts.join('<br><br>');
+            // Definindo o texto com base no idioma selecionado
+            const textElement = document.getElementById('text');
+            textElement.innerHTML = texts[lang][Math.floor(Math.random() * texts[lang].length)];
         }
 
-        // Função para alternar o texto com base no idioma
-        function toggleText() {
-            const textContent = document.querySelector('.text-content');
-            textContent.style.display = 'block';
-            playRandomAudio();  // Tocar o som ao clicar no botão
+        // Função para trocar o GIF de fundo
+        let gifs = [
+            "https://cdna.artstation.com/p/assets/images/images/030/181/244/original/benett-casama-snoot-x.gif?1599837640",
+            "https://i0.wp.com/assets.b9.com.br/wp-content/uploads/2015/09/japaogif11.gif?fit=500%2C288&ssl=1",
+            "https://images.app.goo.gl/rJBi5AAoLQwxheyT8"
+        ];
+        let currentGifIndex = 0;
+
+        function changeGif() {
+            const body = document.querySelector('body');
+            body.style.backgroundImage = `url(${gifs[currentGifIndex]})`;
+            currentGifIndex = (currentGifIndex + 1) % gifs.length;
         }
 
-        // Função para tocar áudio aleatório
-        function playRandomAudio() {
-            const randomIndex = Math.floor(Math.random() * audioLinks.length);
-            const audioPlayer = document.getElementById('audio-player');
-            const audioSource = document.getElementById('audio-source');
-            audioSource.src = audioLinks[randomIndex];
-            audioPlayer.load();
-            audioPlayer.play();
-        }
-
-        // Função para mudar o GIF de fundo
-        function changeGif(direction) {
-            currentGifIndex += direction;
-
-            // Garantir que o índice esteja dentro dos limites
-            if (currentGifIndex < 0) {
-                currentGifIndex = gifs.length - 1;
-            } else if (currentGifIndex >= gifs.length) {
-                currentGifIndex = 0;
-            }
-
-            // Alterar o fundo para o novo GIF
-            document.body.style.backgroundImage = `url(${gifs[currentGifIndex]})`;
-        }
+        // Inicializa a página com o áudio e o texto no idioma padrão (Português)
+        window.onload = function() {
+            playRandomAudio();
+            setLanguage('pt'); // Começa com o português
+            changeGif(); // Começa com o primeiro GIF
+        };
     </script>
 </body>
 </html>
