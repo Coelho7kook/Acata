@@ -3,44 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reprodutor de Música - YouTube</title>
+    <title>Controle de Áudio Completo</title>
 </head>
 <body>
-    <!-- Texto explicativo -->
-    <p>Clique em qualquer lugar da página para mudar a música!</p>
-
-    <!-- Elemento de áudio, com um link de música como exemplo -->
-    <audio id="audio-player" preload="auto" autoplay>
-        <!-- Defina o primeiro áudio para tocar automaticamente ao carregar -->
+    <h1>Reprodutor de Áudio</h1>
+    <p>Clique em qualquer lugar para controlar o áudio!</p>
+    <audio id="audioPlayer" preload="auto">
         <source src="https://www.youtube.com/embed/s7RRgF5Ve_E?autoplay=1" type="audio/mp3">
         Seu navegador não suporta o elemento de áudio.
     </audio>
 
-    <script>
-        // Função para trocar o áudio ao clicar
-        function playMusic() {
-            const audioPlayer = document.getElementById('audio-player');
-            const audioLinks = [
-                "https://www.youtube.com/embed/s7RRgF5Ve_E?autoplay=1",  // Primeiro link de áudio
-                "https://www.youtube.com/embed/v9l52KilyLU?autoplay=1",  // Segundo link de áudio
-                "https://www.youtube.com/embed/8FuRsZ7U4BU?autoplay=1",  // Terceiro link de áudio
-                "https://www.youtube.com/embed/YHO6EDIbGlk?autoplay=1",  // Quarto link de áudio
-                "https://www.youtube.com/embed/Z38LV9INDtY?autoplay=1"   // Quinto link de áudio
-            ];
+    <!-- Controles do Áudio -->
+    <br>
+    <button onclick="playAudio()">Tocar Áudio</button>
+    <button onclick="pauseAudio()">Pausar Áudio</button>
+    <button onclick="changeAudioSource()">Trocar Áudio</button>
 
-            // Escolher um link aleatório
-            const randomIndex = Math.floor(Math.random() * audioLinks.length);
-            audioPlayer.src = audioLinks[randomIndex];  // Mudar o src para o novo link de áudio
-            audioPlayer.play();  // Começar a tocar a nova música
+    <script>
+        // Obter o elemento de áudio
+        const audioPlayer = document.getElementById('audioPlayer');
+
+        // 1. Método para iniciar o áudio (play)
+        function playAudio() {
+            audioPlayer.play();
+            console.log("Áudio tocando...");
         }
 
-        // Função para tocar música automaticamente quando a página for carregada
-        window.onload = function() {
-            playMusic();  // Chama a função para tocar a música ao carregar a página
-        };
+        // 2. Método para pausar o áudio (pause)
+        function pauseAudio() {
+            audioPlayer.pause();
+            console.log("Áudio pausado.");
+        }
 
-        // Adiciona um evento para tocar a música ao clicar em qualquer lugar da página
-        document.body.addEventListener('click', playMusic);
+        // 3. Método para carregar o áudio (load) novamente (muda a URL)
+        function loadNewAudio() {
+            audioPlayer.load();  // Força o recarregamento do áudio
+            console.log("Áudio recarregado.");
+        }
+
+        // 4. Método para alternar o áudio de forma aleatória (mudar fonte)
+        function changeAudioSource() {
+            const audioLinks = [
+                "https://www.youtube.com/embed/s7RRgF5Ve_E?autoplay=1",  // Primeira música
+                "https://www.youtube.com/embed/v9l52KilyLU?autoplay=1",  // Segunda música
+                "https://www.youtube.com/embed/8FuRsZ7U4BU?autoplay=1",  // Terceira música
+                "https://www.youtube.com/embed/YHO6EDIbGlk?autoplay=1",  // Quarta música
+                "https://www.youtube.com/embed/Z38LV9INDtY?autoplay=1"   // Quinta música
+            ];
+
+            const randomIndex = Math.floor(Math.random() * audioLinks.length);
+            audioPlayer.src = audioLinks[randomIndex];
+            audioPlayer.play();  // Inicia o novo áudio imediatamente
+            console.log("Mudando para um novo áudio...");
+        }
+
+        // 5. Método para controlar a reprodução com `setTimeout`
+        function playAfterDelay() {
+            setTimeout(() => {
+                audioPlayer.play();
+                console.log("Áudio tocando após o delay.");
+            }, 2000);  // A música começa após 2 segundos
+        }
+
+        // 6. Método para adicionar um evento de clique e tocar o áudio
+        document.body.addEventListener('click', () => {
+            audioPlayer.play();
+            console.log("Áudio tocando após clique.");
+        });
+
+        // 7. Método de controle do volume
+        function setVolume(volumeLevel) {
+            audioPlayer.volume = volumeLevel;  // De 0.0 a 1.0
+            console.log("Volume ajustado para:", volumeLevel);
+        }
+
+        // 8. Método para reiniciar o áudio do início
+        function resetAudio() {
+            audioPlayer.currentTime = 0;
+            audioPlayer.play();
+            console.log("Áudio reiniciado.");
+        }
+
+        // 9. Método para obter o status de reprodução
+        function checkStatus() {
+            if (audioPlayer.paused) {
+                console.log("O áudio está pausado.");
+            } else {
+                console.log("O áudio está tocando.");
+            }
+        }
+
+        // 10. Método para verificar o tempo de reprodução
+        function displayCurrentTime() {
+            console.log("Tempo atual do áudio: " + audioPlayer.currentTime + " segundos.");
+        }
+        
+        // Inicializa com o áudio carregado
+        window.onload = () => {
+            playAudio(); // Toca automaticamente ao carregar a página
+        };
     </script>
 </body>
 </html>
